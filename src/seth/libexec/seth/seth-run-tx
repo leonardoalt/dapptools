@@ -24,7 +24,7 @@ fi
 
 # if `--timestamp` is not provided, we fetch it from the tx block
 if [[ -z $HEVM_TIMESTAMP ]]; then
-    HEVM_TIMESTAMP=$(seth block "$(echo "$tx" | seth --field blockNumber)" timestamp)
+    HEVM_TIMESTAMP=$(seth block "$(seth --to-dec "$(echo "$tx" | seth --field blockNumber)")" timestamp)
 fi
 
 TO=$(echo "$tx" | seth --field to)

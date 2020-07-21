@@ -14,11 +14,24 @@ let
     doCheck = false;
   };
 
+  chai-src = pkgs.fetchFromGitHub {
+    owner = "dapphub";
+    repo = "chai";
+    rev = "b75edb6409d51fd91e53e73f77092b573c4242a9";
+    sha256 = "0b39wshc901pbrv0dvm8fll4dapfn5gjwliv0w6q8f3ahhi8j2cc";
+  } + "/src";
+
+  chai = pkgs.buildDappPackage {
+    src = chai-src;
+    name = "chai";
+    doCheck = false;
+  };
+
 in
   pkgs.buildDappPackage {
     name = "dapp-tests";
     src = ./.;
-    deps = [ ds-test ];
+    deps = [ ds-test chai ];
 
     checkInputs = with pkgs; [ hevm jq seth dapp solc ];
   }
